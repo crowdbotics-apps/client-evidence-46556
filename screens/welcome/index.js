@@ -1,44 +1,58 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
-const WorkTypeSelectionScreen = () => {
-  const workTypes = ['Plumbing', 'Framing', 'Drywall', 'Electric', 'HVAC'];
+const LandingPage = () => {
   return <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        <Text style={styles.header}>Select the Type of Work</Text>
-        {workTypes.map((workType, index) => <TouchableOpacity key={index} style={styles.button}>
-            <Text style={styles.buttonText}>{workType}</Text>
-          </TouchableOpacity>)}
-      </ScrollView>
+      <View style={styles.content}>
+        <Text style={styles.title}>Client Evidence App</Text>
+        <Image source={{
+        uri: 'https://tinyurl.com/42evm3m3'
+      }} style={styles.image} />
+        <Text style={styles.description}>
+          Easily upload and manage evidence documents securely.
+        </Text>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Get Started</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>;
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8F8FC'
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  scrollView: {
+  content: {
     alignItems: 'center',
     padding: 20
   },
-  header: {
+  title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#333',
+    marginBottom: 20
+  },
+  image: {
+    width: 200,
+    height: 200,
+    marginBottom: 20
+  },
+  description: {
+    fontSize: 16,
+    textAlign: 'center',
     marginBottom: 20
   },
   button: {
     backgroundColor: '#007BFF',
-    padding: 15,
-    borderRadius: 5,
-    marginVertical: 10,
-    width: '100%',
-    alignItems: 'center'
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5
   },
   buttonText: {
     color: '#FFFFFF',
     fontSize: 18
   }
 });
-export default WorkTypeSelectionScreen;
+export default LandingPage;
