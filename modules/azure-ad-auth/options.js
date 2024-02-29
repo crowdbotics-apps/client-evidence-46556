@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-
 const styles = StyleSheet.create({
   backgroundColor: {
     backgroundColor: "#0d7fd8"
@@ -95,7 +94,6 @@ const styles = StyleSheet.create({
     borderRadius: 3
   }
 });
-
 export default {
   styles: styles,
   AZURE_AUTH_TENANT_OPTIONS: "",

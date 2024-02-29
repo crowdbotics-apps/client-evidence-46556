@@ -1,53 +1,61 @@
 import React, { useState } from "react";
-import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Alert } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity, TextInput, ScrollView, Alert } from "react-native";
 
 const LandingPage = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
+  const [query, setQuery] = useState("");
 
-  const handleLogin = () => {
-    if (username.trim()) {
-      setIsLoggedIn(true);
+  const handleQuery = (presetQuery = "") => {
+    if (presetQuery) {
+      setQuery(presetQuery);
+    } else if (!query.trim()) {
+      Alert.alert("Query Required", "Please enter a query to proceed.");
     } else {
-      Alert.alert("Authentication Failed", "Please enter a valid username.");
+      Alert.alert("Query Submitted", `You searched for: ${query}`);
     }
   };
 
   return <SafeAreaView style={styles.container}>
-      {!isLoggedIn ? <View style={styles.loginContainer}>
-          <Text style={styles.title}>Login to Continue</Text>
-          <TextInput style={styles.input} placeholder="Enter Username" value={username} onChangeText={setUsername} />
-          <TouchableOpacity style={styles.button} onPress={handleLogin}>
-            <Text style={styles.buttonText}>Login</Text>
-          </TouchableOpacity>
-        </View> : <View style={styles.content}>
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <View style={styles.content}>
           <Text style={styles.title}>Welcome to Client Evidence App</Text>
           <Image source={{
-        uri: "https://tinyurl.com/42evm3m3"
-      }} style={styles.image} />
+          uri: "https://tinyurl.com/42evm3m3"
+        }} style={styles.image} />
           <Text style={styles.description}>
             Easily upload and manage evidence documents securely.
           </Text>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Start Chat</Text>
+          <TextInput style={styles.input} placeholder="Start your chat experience..." placeholderTextColor="#FFFFFF" value={query} onChangeText={setQuery} />
+          <TouchableOpacity style={styles.button} onPress={() => handleQuery()}>
+            <Text style={styles.buttonText}>Submit Query</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.guideButton]}>
-            <Text style={styles.buttonText}>How-to Guide</Text>
+          <Text style={styles.guideTitle}>How-to Guide</Text>
+          <Text style={styles.guideText}>
+            Start by entering your query in the text box above or select one of the example queries below.
+          </Text>
+          <TouchableOpacity style={styles.queryButton} onPress={() => handleQuery("What are success stories in the banking industry with cloud migration?")}>
+            <Text style={styles.queryButtonText}>
+              What are success stories in the banking industry with cloud migration?
+            </Text>
           </TouchableOpacity>
-        </View>}
+          <TouchableOpacity style={styles.queryButton} onPress={() => handleQuery("Give me evidence of work we've done in the automotive industry for professional services")}>
+            <Text style={styles.queryButtonText}>
+              Give me evidence of work we've done in the automotive industry for professional services
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </SafeAreaView>;
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
+    backgroundColor: "#FFA500"
   },
-  loginContainer: {
+  scrollView: {
     alignItems: "center",
-    padding: 20
+    justifyContent: "center",
+    paddingVertical: 20
   },
   content: {
     alignItems: "center",
@@ -56,7 +64,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 20
+    marginBottom: 20,
+    color: "#FFFFFF"
   },
   image: {
     width: 200,
@@ -66,31 +75,54 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     textAlign: "center",
-    marginBottom: 20
-  },
-  button: {
-    backgroundColor: "#007BFF",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginBottom: 10
-  },
-  guideButton: {
-    backgroundColor: "#28a745"
-  },
-  buttonText: {
-    color: "#FFFFFF",
-    fontSize: 18
+    marginBottom: 20,
+    color: "#FFFFFF"
   },
   input: {
     height: 40,
     margin: 12,
     borderWidth: 1,
     padding: 10,
-    width: 200,
+    width: 300,
     marginBottom: 20,
-    borderColor: "#007BFF",
+    borderColor: "#FFFFFF",
+    color: "#FFFFFF",
     borderRadius: 5
+  },
+  button: {
+    backgroundColor: "#E65100",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginBottom: 10
+  },
+  buttonText: {
+    color: "#FFFFFF",
+    fontSize: 18
+  },
+  guideTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#FFFFFF",
+    marginBottom: 10
+  },
+  guideText: {
+    fontSize: 16,
+    color: "#FFFFFF",
+    textAlign: "center",
+    marginBottom: 20
+  },
+  queryButton: {
+    backgroundColor: "#FFD700",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginBottom: 10
+  },
+  queryButtonText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    textAlign: "center"
   }
 });
 export default LandingPage;
